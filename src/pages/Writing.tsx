@@ -1,19 +1,29 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { writings } from "../content/writings";
 import { WritingCard } from "../components/WritingCard";
 import { cn } from "../lib/utils";
+import { useHashnodePosts } from "../hooks/useHashnodePosts";
 
 export default function Writing() {
+  const { posts: hashnodePosts, loading: hashnodeLoading, error: hashnodeError } = useHashnodePosts("codecrafters.hashnode.dev");
   const [filter, setFilter] = useState<"all" | "blog" | "learning">("all");
 
-  const filteredWritings = [...writings]
-    .filter((w) => {
+  // Fallback logic: Use local writings if Hashnode API fails
+  const sourcePosts = hashnodeError ? writings : hashnodePosts;
+
+  const filteredWritings = [...sourcePosts]
+    .filter((w: any) => {
       if (filter === "all") return true;
       return w.type === filter;
     })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a: any, b: any) => {
+      const timeA = a.originalDate ? a.originalDate.getTime() : new Date(a.date).getTime();
+      const timeB = b.originalDate ? b.originalDate.getTime() : new Date(b.date).getTime();
+      return timeB - timeA;
+    });
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -47,12 +57,18 @@ export default function Writing() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredWritings.map((writing) => (
-          <WritingCard key={writing.id} writing={writing} />
-        ))}
+        {hashnodeLoading ? (
+          <div className="col-span-1 md:col-span-2 py-24 text-center text-zinc-500">
+            Loading writings from Hashnode...
+          </div>
+        ) : (
+          filteredWritings.map((writing) => (
+            <WritingCard key={writing.id} writing={writing} />
+          ))
+        )}
       </div>
 
-      {filteredWritings.length === 0 && (
+      {!hashnodeLoading && filteredWritings.length === 0 && (
         <div className="py-24 text-center text-zinc-500">
           No entries found for this category.
         </div>

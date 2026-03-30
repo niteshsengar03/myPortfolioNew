@@ -9,8 +9,11 @@ import { ProjectCard } from "../components/ProjectCard";
 import { WritingCard } from "../components/WritingCard";
 import { VideoCard } from "../components/VideoCard";
 import { ContactSection } from "../components/ContactSection";
+import { useHashnodePosts } from "../hooks/useHashnodePosts";
 
 export default function Home() {
+  const { posts: hashnodePosts, loading: hashnodeLoading, error: hashnodeError } = useHashnodePosts("codecrafters.hashnode.dev");
+
   const capstoneProjects = projects
     .filter((p) => p.category === "capstone" && p.featured)
     .sort((a, b) => a.priority - b.priority)
@@ -21,9 +24,16 @@ export default function Home() {
     .sort((a, b) => a.priority - b.priority)
     .slice(0, 3);
 
-  const recentWritings = [...writings]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 4);
+  // Fallback logic: If Hashnode API fails, use the local hardcoded writings
+  const recentWritings = hashnodeError
+    ? [...writings]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 4)
+    : [...hashnodePosts]
+        .filter(post => post.isFeatured)
+        .sort((a, b) => b.originalDate.getTime() - a.originalDate.getTime())
+        .slice(0, 4);
+
   const featuredVideos = videos.filter((v) => v.featured).slice(0, 3);
 
   return (
@@ -112,9 +122,19 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {recentWritings.map((writing) => (
-            <WritingCard key={writing.id} writing={writing} />
-          ))}
+          {hashnodeLoading ? (
+            <div className="col-span-1 md:col-span-2 py-12 text-center text-zinc-500">
+              Loading latest writings...
+            </div>
+          ) : recentWritings.length > 0 ? (
+            recentWritings.map((writing) => (
+              <WritingCard key={writing.id} writing={writing} />
+            ))
+          ) : (
+            <div className="col-span-1 md:col-span-2 py-12 text-center text-zinc-500">
+              No recent writings found.
+            </div>
+          )}
         </div>
         <Link to="/writing" className="md:hidden inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors group">
           View All Writing <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

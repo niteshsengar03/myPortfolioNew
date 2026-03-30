@@ -8,13 +8,26 @@
 //   }
 // ];
 
-
 export const videos = [
   {
     id: "tailwind",
     title: "How Tailwind Works Under the Hood (I Rebuilt It)",
     youtubeId: "0hNr7wb-qM0", // Placeholder
     duration: "32:11",
+    featured: true,
+  },
+  {
+    id: "podcast-cyber",
+    title: "Trailing the lesser known path of Cybersecurity (Ft.Ansh)",
+    youtubeId: "yuDcLJu8jfU", // Placeholder
+    duration: "1:06:26",
+    featured: true,
+  },
+  {
+    id: "podcast-OS",
+    title: "Discussing the Open-Source Universe of Linux (Ft.Yeyati)",
+    youtubeId: "nZ5Q3XLY4oQ", // Placeholder
+    duration: "16:08",
     featured: true,
   },
 ];

@@ -4,8 +4,12 @@
 //   tools: ["string", "string"]    // Array of databases or other tools (e.g., ["PostgreSQL", "Redis"]).
 // };
 
+
 export const techStack = {
-  backend: ["Go", "Node.js", "Python", "Rust", "Java"],
-  devops: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD"],
-  tools: ["PostgreSQL", "Redis", "Kafka", "ClickHouse", "gRPC"]
+  languages: ["Js", "Ts", "Java", "Go", "C", "C++"],
+  backend: ["Node.js", "Express.js", "Fast API"],
+  // frontend: ["React"],
+  databases: ["MySQL", "MongoDB", "PostgreSQL",],
+  devops: ["Docker","AWS","jenkins","Digital Ocean", "Linux"],
+  tools: ["Git", "Prisma","Drizzle", "Mongoose", "Redis"],
 };

@@ -6,24 +6,29 @@
 //   }
 // ];
 
-
-
-
-
 export const achievements = [
   {
-    id: "aws-certified",
-    title: "AWS Certified Solutions Architect – Professional",
-    description: "Validated advanced technical skills and experience in designing distributed applications and systems on the AWS platform."
-  },
-  {
-    id: "open-source",
-    title: "Open Source Contributor",
-    description: "Merged PRs in popular open-source projects including Redis and Apache Kafka."
-  },
-  {
     id: "hackathon-winner",
-    title: "1st Place - Global Systems Hackathon",
-    description: "Built a distributed tracing tool that won first place among 500+ participating teams."
-  }
+    title: "Winner – Sustain-AI-Thon 2025 (College Hackathon)",
+    description:
+      "Secured 1st place in a college-level hackathon focused on sustainability-driven solutions.",
+  },
+  {
+    id: "sap-hackathon",
+    title: "Top 20 Nationwide – SAP Hackathon 2024",
+    description:
+      "Ranked among the top 20 teams out of 1,000+ participants across the country.",
+  },
+  {
+    id: "public-speaking",
+    title: "Public Speaker – College Events & Orientations",
+    description:
+      "Represented student clubs in multiple college orientations and events, delivering talks to large audiences.",
+  },
+  {
+    id: "workshops",
+    title: "Conducted Backend & Programming Workshops",
+    description:
+      "Led multiple workshops for college clubs, teaching backend development and core programming concepts.",
+  },
 ];
