@@ -36,4 +36,9 @@ export const socials = [
     url: "https://www.youtube.com/channel/UCdbXMqi-z3xmHlUvy9mMd9Q", // Update with your actual handle
     icon: "youtube",
   },
+  {
+    name: "DON'T CLICK!",
+    url: "https://takeuforward.org/profile/sengar_nitesh", // Update with your actual handle
+    icon: "binary",
+  },
 ];

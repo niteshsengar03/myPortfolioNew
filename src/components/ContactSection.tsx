@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Copy, Check, Github, Linkedin, Twitter, Instagram, Youtube, ArrowUpRight } from "lucide-react";
+import { Mail, Binary,Copy, Check, Github, Linkedin, Twitter, Instagram, Youtube, ArrowUpRight } from "lucide-react";
 import { socials, email } from "../content/socials";
 
 const iconMap: Record<string, any> = {
@@ -8,6 +8,7 @@ const iconMap: Record<string, any> = {
   twitter: Twitter,
   instagram: Instagram,
   youtube: Youtube,
+  binary:Binary
 };
 
 export function ContactSection() {
