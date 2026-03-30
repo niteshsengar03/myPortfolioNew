@@ -4,3 +4,13 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,10 +1,37 @@
+import { useRef, useState, useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { ArrowLeft, Github, ExternalLink } from "lucide-react";
+import { ArrowLeft, Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "../content/projects";
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const project = projects.find((p) => p.id === id);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(Math.ceil(scrollLeft) < scrollWidth - clientWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, [project?.architectureImages]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { clientWidth } = scrollRef.current;
+      const scrollAmount = direction === 'left' ? -clientWidth : clientWidth;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   if (!project) {
     return <Navigate to="/" replace />;
@@ -62,14 +89,46 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      {project.architectureImage && (
-        <div className="rounded-2xl overflow-hidden border border-zinc-800/50 bg-zinc-900/20">
-          <img
-            src={project.architectureImage}
-            alt={`${project.title} Architecture`}
-            className="w-full h-auto object-cover"
-            referrerPolicy="no-referrer"
-          />
+      {project.architectureImages && project.architectureImages.length > 0 && (
+        <div className="relative group">
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll('left')}
+              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 p-2 md:p-2.5 rounded-full bg-zinc-900/90 text-zinc-100 border border-zinc-700/50 backdrop-blur-md hover:bg-zinc-800 transition-all shadow-xl"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
+
+          <div 
+            ref={scrollRef}
+            onScroll={checkScroll}
+            className="w-full overflow-x-auto pb-4 snap-x snap-mandatory hide-scrollbar"
+          >
+            <div className="flex gap-4 w-max">
+              {project.architectureImages.map((img, idx) => (
+                <div key={idx} className="rounded-2xl overflow-hidden border border-zinc-800/50 bg-zinc-900/20 w-[85vw] md:w-[80vw] max-w-3xl shrink-0 snap-center">
+                  <img
+                    src={img}
+                    alt={`${project.title} Architecture ${idx + 1}`}
+                    className="w-full h-auto object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {canScrollRight && project.architectureImages.length > 1 && (
+            <button
+              onClick={() => scroll('right')}
+              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 p-2 md:p-2.5 rounded-full bg-zinc-900/90 text-zinc-100 border border-zinc-700/50 backdrop-blur-md hover:bg-zinc-800 transition-all shadow-xl"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          )}
         </div>
       )}
 

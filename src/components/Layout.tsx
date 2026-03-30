@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { cn } from "../lib/utils";
 import { socials } from "../content/socials";
 
@@ -49,15 +49,11 @@ export default function Layout() {
           <Link 
             to="/" 
             onClick={(e) => handleNavClick(e, "/")}
-            // className="text-zinc-100 font-medium tracking-tight hover:text-blue-400 transition-colors shrink-0 text-lg md:text-base"
             className="text-zinc-100 font-medium tracking-tight hover:text-blue-400 transition-colors shrink-0 text-lg md:text-xl"
-
           >
             Nitesh
           </Link>
-          {/* <div className="flex items-center justify-center w-full md:w-auto gap-3 sm:gap-5 md:gap-6 text-xs sm:text-sm"> */}
-          <div className="flex items-center justify-center w-full md:w-auto gap-3 sm:gap-5 md:gap-6 text-xs sm:text-xl">
-
+          <div className="flex items-center justify-center w-full md:w-auto gap-3 sm:gap-5 md:gap-8 text-xs sm:text-sm md:text-base">
             {navItems.map((item) => {
               const isActive = item.path === "/" 
                 ? location.pathname === "/" && !location.hash 
