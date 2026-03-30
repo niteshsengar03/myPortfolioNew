@@ -1,3 +1,17 @@
+// export const writings = [
+//   {
+//     id: "string",          // Unique ID for the writing piece.
+//     title: "string",       // The headline of your article.
+//     description: "string", // A short summary of what the article is about.
+//     type: "blog" | "learning", // Categorizes the post. Used by the filter buttons on the Writing page.
+//     tags: ["string"],      // Array of topics covered (e.g., ["System Design", "Rust"]).
+//     date: "YYYY-MM-DD",    // The publication date. The code uses this to sort newest to oldest automatically!
+//     readTime: "string",    // (Optional) Estimated reading time (e.g., "6 min read").
+//     link: "string"         // The external URL where the article is actually hosted (e.g., Medium, Hashnode, Dev.to).
+//   }
+// ];
+
+
 export const writings = [
   {
     id: "designing-idempotent-apis",

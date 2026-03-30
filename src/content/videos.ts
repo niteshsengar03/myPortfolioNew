@@ -1,30 +1,20 @@
+// export const videos = [
+//   {
+//     id: "string",          // Unique ID for the video.
+//     title: "string",       // The title of the video.
+//     youtubeId: "string",   // The unique 11-character YouTube video ID (e.g., for youtube.com/watch?v=dQw4w9WgXcQ, the ID is "dQw4w9WgXcQ").
+//     duration: "string",    // The length of the video (e.g., "45:20" or "1:15:00").
+//     featured: boolean      // Set to `true` if you want to highlight it.
+//   }
+// ];
+
+
 export const videos = [
   {
-    id: "system-design-rate-limiter",
-    title: "System Design Interview: Design a Rate Limiter",
-    youtubeId: "dQw4w9WgXcQ", // Placeholder
-    duration: "45:20",
-    featured: true
+    id: "tailwind",
+    title: "How Tailwind Works Under the Hood (I Rebuilt It)",
+    youtubeId: "0hNr7wb-qM0", // Placeholder
+    duration: "32:11",
+    featured: true,
   },
-  {
-    id: "understanding-paxos",
-    title: "Understanding the Paxos Consensus Algorithm",
-    youtubeId: "dQw4w9WgXcQ", // Placeholder
-    duration: "32:15",
-    featured: true
-  },
-  {
-    id: "building-redis-from-scratch",
-    title: "Building a Redis Clone in Go - Part 1",
-    youtubeId: "dQw4w9WgXcQ", // Placeholder
-    duration: "1:15:00",
-    featured: true
-  },
-  {
-    id: "kubernetes-networking",
-    title: "Demystifying Kubernetes Networking",
-    youtubeId: "dQw4w9WgXcQ", // Placeholder
-    duration: "50:10",
-    featured: false
-  }
 ];

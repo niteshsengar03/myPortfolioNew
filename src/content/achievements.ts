@@ -1,3 +1,15 @@
+// export const achievements = [
+//   {
+//     id: "string",          // Unique ID for the achievement.
+//     title: "string",       // The name of the award, certification, or milestone (e.g., "AWS Certified").
+//     description: "string"  // A brief 1-2 sentence explanation of what you achieved.
+//   }
+// ];
+
+
+
+
+
 export const achievements = [
   {
     id: "aws-certified",

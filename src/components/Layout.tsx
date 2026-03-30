@@ -53,7 +53,7 @@ export default function Layout() {
             className="text-zinc-100 font-medium tracking-tight hover:text-blue-400 transition-colors shrink-0 text-lg md:text-xl"
 
           >
-            Nitesh Sengar
+            Nitesh
           </Link>
           {/* <div className="flex items-center justify-center w-full md:w-auto gap-3 sm:gap-5 md:gap-6 text-xs sm:text-sm"> */}
           <div className="flex items-center justify-center w-full md:w-auto gap-3 sm:gap-5 md:gap-6 text-xs sm:text-xl">
