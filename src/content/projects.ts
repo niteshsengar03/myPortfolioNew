@@ -86,6 +86,48 @@ export const projects = [
       "Modularity vs consistency trade-off: Splitting functionality into microservices improved maintainability, but we learned the hard way that distributed transactions are complex. In the future, we would use saga patterns or ensure simpler data ownership to avoid inconsistencies.",
     ],
   },
+  {
+    id: "mern-zkp-auth",
+    title: "MERN ZKP Auth package",
+    description:
+      "Passwordless Full-stack Schnorr Zero-Knowledge Proof (ZKP) Authentication for MERN stack applications. Prevent leaked passwords and replay attacks using cryptographically secure elliptic curves.",
+    category: "capstone",
+    tags: [
+      "NPM Package",
+      "React",
+      "Express.js",
+      "Cryptography",
+      "ZKP",
+      "Security"
+    ],
+    thumbnail: "/images/zkp.png?q=80&w=2034&auto=format&fit=crop",
+    // githubUrl: "https://github.com/niteshsengar03/npmPjt2Try",
+    hasLive: true,
+    liveUrl: "https://www.npmjs.com/package/mern-zkp-auth",
+    featured: true,
+    status: "live",
+    priority: 2,
+    problemStatement:
+      "Traditional password-based authentication systems are highly vulnerable to database leaks and replay attacks. Transmitting passwords over the internet exposes users to significant security risks. Developers need an easy way to integrate robust cryptographic authentication into MERN applications without requiring users to remember traditional passwords.",
+    architectureImages: [],
+    keyDecisions: [
+      "Implemented Schnorr signatures for mathematical cryptographic security over Elliptic Curves.",
+      "Engineered a single-use nonces challenge system to effectively defend against Replay Attacks.",
+      "Utilized an AES-GCM Local Vault to handle the private key, ensuring it is securely encrypted and stored entirely in the browser's IndexedDB.",
+      "Created a flexible authentication factory for Express servers that fires callbacks upon successful mathematical proof, seamlessly integrating with custom JWT logic.",
+      "Designed both a perfectly stylized Prebuilt Drop-in React Component and customizable hooks (`useZKPAuth`) for optimal developer experience on the frontend."
+    ],
+    challenges: [
+      "Abstracting highly complex Cryptography, IndexedDB storage, and API calls into an easy-to-use, unified developer API.",
+      "Ensuring the browser instantly drops the decrypted private key from RAM immediately after computing the proof.",
+      "Guarding against replay attacks by issuing short-lived server challenges and meticulously deleting them post-validation."
+    ],
+    learnings: [
+      "Deepened understanding of Zero-Knowledge Proof security architectures, specifically the commit and verify flows.",
+      "Gained expertise in publishing and structuring robust full-stack NPM packages encompassing both client and server exports.",
+      "Learned the nuances of securely handling local cryptography using Web Crypto API and IndexedDB."
+    ],
+  },
 
   {
     id: "instagram-unfollow-analyzer",
