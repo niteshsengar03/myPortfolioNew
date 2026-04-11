@@ -10,6 +10,7 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Writing from "./pages/Writing";
 import Videos from "./pages/Videos";
+import BlogPost from "./pages/BlogPost";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="projects/:id" element={<ProjectDetail />} />
           <Route path="writing" element={<Writing />} />
           <Route path="videos" element={<Videos />} />
+          <Route path="blog/:id" element={<BlogPost />} />
         </Route>
       </Routes>
     </BrowserRouter>
