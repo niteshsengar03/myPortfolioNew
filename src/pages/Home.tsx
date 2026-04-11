@@ -17,6 +17,7 @@ type ProjectTab = "capstone" | "mini";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<ProjectTab>("capstone");
+  const [photoColored, setPhotoColored] = useState(false);
 
   const {
     posts: hashnodePosts,
@@ -37,12 +38,10 @@ export default function Home() {
   const displayedProjects =
     activeTab === "capstone" ? capstoneProjects : miniProjects;
 
-  // Fallback logic: If Hashnode API fails, use the local hardcoded writings
   const recentWritings = hashnodeError
     ? [...writings]
         .sort(
-          (a, b) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         )
         .slice(0, 4)
     : [...hashnodePosts]
@@ -53,45 +52,85 @@ export default function Home() {
   const featuredVideos = videos.filter((v) => v.featured).slice(0, 3);
 
   return (
-    <div className="space-y-32">
-      {/* 1. HERO SECTION */}
-      <section className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight text-zinc-100">
-            Backend Engineer building scalable systems
-          </h1>
-          <p className="text-xl text-zinc-400 max-w-2xl">
-            Focused on the work, not the outcome.
-          </p>
-        </div>
+    <div className="space-y-24">
+      {/* ── 1. HERO ── */}
+      <section className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        {/*
+          Desktop: two-column — text left, photo right
+          Mobile:  photo on top (centered), text below
+        */}
+        <div className="flex flex-col-reverse md:flex-row md:items-center md:gap-12 lg:gap-20">
+          {/* Left — text */}
+          <div className="flex-1 space-y-7 mt-8 md:mt-0">
+            <div className="space-y-3">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-zinc-100 leading-[1.1]">
+                Backend Engineer building scalable systems
+              </h1>
+              <p className="text-lg md:text-xl text-zinc-400 max-w-xl">
+                Focused on the work, not the outcome.
+              </p>
+            </div>
 
-        <div className="space-y-2 border-l-2 border-blue-500/30 pl-4 py-1">
-          <p className="text-lg font-serif italic text-zinc-300">
-            "बन्धुरात्मात्मनस्तस्य येनात्मैवात्मना जितः।"
-          </p>
-          <p className="text-sm text-zinc-500">
-            "For one who has conquered the mind, the mind is the best of
-            friends."
-          </p>
-        </div>
+            <div className="border-l-2 border-blue-500/30 pl-4 py-1 space-y-1">
+              <p className="text-base font-serif italic text-zinc-300">
+                "बन्धुरात्मात्मनस्तस्य येनात्मैवात्मना जितः।"
+              </p>
+              <p className="text-sm text-zinc-500">
+                "For one who has conquered the mind, the mind is the best of friends."
+              </p>
+            </div>
 
-        <div className="flex items-center gap-4 pt-4">
-          <Link
-            to="/#work"
-            className="px-6 py-3 rounded-full bg-zinc-100 text-zinc-950 font-medium hover:bg-white transition-colors"
-          >
-            View Projects
-          </Link>
-          <Link
-            to="/#writing"
-            className="px-6 py-3 rounded-full bg-zinc-900 text-zinc-300 font-medium border border-zinc-800 hover:border-zinc-700 hover:text-zinc-100 transition-colors"
-          >
-            Read Writing
-          </Link>
+            <div className="flex items-center gap-3 flex-wrap">
+              <Link
+                to="/#videos"
+                className="px-6 py-3 rounded-full bg-zinc-100 text-zinc-950 font-medium hover:bg-white transition-colors"
+              >
+                Learn in Public
+              </Link>
+              <Link
+                to="/#writing"
+                className="px-6 py-3 rounded-full bg-zinc-900 text-zinc-300 font-medium border border-zinc-800 hover:border-zinc-700 hover:text-zinc-100 transition-colors"
+              >
+                Read Writing
+              </Link>
+            </div>
+          </div>
+
+          {/* Right — photo */}
+          <div className="flex justify-center md:justify-end shrink-0">
+            {/* Outer ring — glows on color */}
+            <div
+              className={cn(
+                "p-[3px] rounded-full transition-all duration-700",
+                photoColored
+                  ? "bg-gradient-to-br from-blue-500 via-violet-500 to-blue-400 shadow-[0_0_40px_rgba(99,102,241,0.4)]"
+                  : "bg-zinc-800"
+              )}
+            >
+              <div className="rounded-full overflow-hidden bg-zinc-950">
+                <img
+                  src="/my.jpeg"
+                  alt="Nitesh Sengar"
+                  /* Desktop: hover → color. Mobile: click → color */
+                  onMouseEnter={() => setPhotoColored(true)}
+                  onMouseLeave={() => setPhotoColored(false)}
+                  onClick={() => setPhotoColored((v) => !v)}
+                  className={cn(
+                    "w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 object-cover object-top select-none",
+                    "transition-all duration-700 ease-in-out cursor-pointer",
+                    photoColored
+                      ? "grayscale-0 scale-[1.03]"
+                      : "grayscale brightness-90"
+                  )}
+                  draggable={false}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 2. UNIFIED WORK SECTION */}
+      {/* ── 2. UNIFIED WORK SECTION ── */}
       <section id="work" className="space-y-8">
         <div className="flex items-end justify-between">
           <div>
@@ -145,7 +184,7 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* 3. WRITING & LEARNING */}
+      {/* ── 3. WRITING & LEARNING ── */}
       <section id="writing" className="space-y-8">
         <div className="flex items-end justify-between">
           <div>
@@ -188,7 +227,7 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* 4. YOUTUBE SECTION */}
+      {/* ── 4. LEARN IN PUBLIC / YOUTUBE ── */}
       <section id="videos" className="space-y-8">
         <div className="flex items-end justify-between">
           <div>
@@ -222,7 +261,7 @@ export default function Home() {
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-        {/* 5. ACHIEVEMENTS */}
+        {/* ── 5. ACHIEVEMENTS ── */}
         <section className="space-y-8">
           <h2 className="text-2xl font-medium text-zinc-100">Achievements</h2>
           <div className="space-y-4">
@@ -234,15 +273,13 @@ export default function Home() {
                 <h3 className="font-medium text-zinc-100 mb-1">
                   {achievement.title}
                 </h3>
-                <p className="text-sm text-zinc-400">
-                  {achievement.description}
-                </p>
+                <p className="text-sm text-zinc-400">{achievement.description}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 6. TECH STACK */}
+        {/* ── 6. TECH STACK ── */}
         <section className="space-y-8">
           <h2 className="text-2xl font-medium text-zinc-100">Tech Stack</h2>
           <div className="space-y-8">
@@ -267,7 +304,7 @@ export default function Home() {
         </section>
       </div>
 
-      {/* 7. CONNECT SECTION */}
+      {/* ── 7. CONTACT ── */}
       <ContactSection />
     </div>
   );
